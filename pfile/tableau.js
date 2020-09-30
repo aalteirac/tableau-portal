@@ -8,9 +8,10 @@ var workbook,
   options,
   placeholderDiv,
   activeFilterSheet;
+var alertTM,subTM;  
 
 function loadViz1() {
-  url="http://10.177.51.176/#/views/Superstore/Overview"
+  url="http://10.177.51.176/#/views/Superstore/Overview?:render=true&:jsdebug=n"
   placeholderDiv = document.getElementById("tableauViz");
   options = {
     width: "100%",
@@ -62,6 +63,26 @@ function loadViz(placeholderDiv, url, options,menushow) {
   }
   else{
     go();
+  }
+}
+
+function poptrigAlert(event){
+  if(event.srcElement.checked){
+    $("#toggle").prop("checked",false);
+    clearTimeout(subTM);
+    alertTM= setTimeout(() => {
+      $("#toggleAlert").prop("checked",false)
+    }, 5000);
+  }
+}
+
+function poptrigSubs(event){
+  if(event.srcElement.checked){
+    $("#toggleAlert").prop("checked",false);
+    clearTimeout(alertTM);
+    subTM=setTimeout(() => {
+      $("#toggle").prop("checked",false)
+    }, 5000);
   }
 }
 

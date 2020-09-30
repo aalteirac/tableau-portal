@@ -50,16 +50,16 @@
               <button onclick="exportPDF();" type="button" class="btn-block btn btn-primary"><i class="fa fa-file-pdf-o"></i> Export PDF</button>
               <button onclick="exportData();" type="button" class="btn-block btn btn-primary"><i class="fa fa-database"></i> Export Data</button>
               <button onclick="showCustomViews()" type="button" class="btn-block btn btn-primary"><i class="fa fa-eye"></i> Views</button>
-              <label for="toggleAlert" type="button"class="btn-block btn btn-primary">Alerts
+              <label for="toggleAlert" type=""class="btn-block btn btn-primary">Alerts
                 <div >
                   <div class="menuburger">
-                    <input type="checkbox" id="toggleAlert" />
+                    <input type="checkbox" id="toggleAlert" onchange="poptrigAlert(event)" />
                     <label id="show-menu-alert" for="toggleAlert">
                       <div class="first">
                         <i class="white material-icons md-18 toggleBtn menuBtn">notification_important</i>
                         <i class="white material-icons md-36 toggleBtn closeBtn">close</i>
                       </div>
-                      <div type="button" class="btnburger" onclick="showDataAlertMgmt()" data-toggle="modal" data-target="#modalMgt" >
+                      <div type="" class="btnburger" onclick="showDataAlertMgmt()" data-toggle="modal" data-target="#modalMgt" >
                         <i class="white material-icons md-36">settings</i>
                       </div>
                       <div class="btnburger" onclick="showDataAlertDialog()">
@@ -69,16 +69,16 @@
                   </div>
                 </div>
               </label>
-              <label for="toggle" type="button"class="btn-block btn btn-primary">Subscriptions
+              <label for="toggle" type=""class="btn-block btn btn-primary">Subscriptions
                 <div >
                   <div class="menuburger">
-                    <input type="checkbox" id="toggle" />
+                    <input type="checkbox" id="toggle" onchange="poptrigSubs(event)" />
                     <label id="show-menu" for="toggle">
                       <div class="first">
                         <i class="white material-icons md-18 toggleBtn menuBtn">calendar_today</i>
                         <i class="white material-icons md-36 toggleBtn closeBtn">close</i>
                       </div>
-                      <div type="button" class="btnburger" onclick="showSubscriptionMgmt()" data-toggle="modal" data-target="#modalMgt">
+                      <div type="" class="btnburger" onclick="showSubscriptionMgmt()" data-toggle="modal" data-target="#modalMgt">
                         <i class="white material-icons md-36">settings</i>
                       </div>
                       <div class="btnburger" onclick="showSubscription()">
@@ -111,11 +111,11 @@
 </div>
 
   <div class="modal fade" id="modalMgt" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
-        <div class="modal-header">
+        <div class="modal-header theme">
           <h5 class="modal-title" id="modalTitle">Manage Alert</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close theme" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -123,7 +123,7 @@
 
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="button" class="theme btn btn-secondary" data-dismiss="modal">Cancel</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteArtefacts()">Delete</button>
         </div>
       </div>

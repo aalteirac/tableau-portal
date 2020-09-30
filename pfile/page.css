@@ -175,8 +175,22 @@ body{
   border-color: #123655;
 }
 
+.theme{
+  background: #123655;
+  color: white;
+}
 
 
+button.close.theme:hover {
+  color: white;
+  opacity: 1;
+}
+
+.modal .theme.btn:hover{
+  opacity: 0.90;
+  background-color: #123655;
+  border-color: #123655;
+}
 
 
 
