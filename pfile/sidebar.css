@@ -1,0 +1,79 @@
+* {
+  -webkit-border-radius: 0 !important;
+     -moz-border-radius: 0 !important;
+          border-radius: 0 !important;
+          outline: none !important;
+          outline: 0 !important;
+}
+
+    
+
+/* Sidebar */
+#sidebar-wrapper{
+  z-index:1;
+  position: absolute;
+  width:0;
+  --margin-top: 142px;
+  --margin-left: 16px;
+  --height:80vh;
+  height:100%;
+  overflow-y:hidden;
+  opacity:0.9;
+	transition:all .5s;
+	display:flex;
+	align-items:center;
+}
+
+/* Main Content */
+#page-content-wrapper{
+  width: 100%;
+  position: absolute;
+  padding:15px;
+	transition:all .5s;
+}
+
+#menu-toggle{
+	transition:all .3s;
+  font-size:1.5em;
+  color: white;
+  width: 60px;
+}
+/* Change the width of the sidebar to display it*/
+#wrapper.menuDisplayed #sidebar-wrapper{
+  width:250px;
+}
+
+#wrapper.menuDisplayed #page-content-wrapper{
+  padding-left:250px;
+}
+
+/*
+#page-content-wrapper.menuDisplayed #sidebar-wrapper{
+  width:250px;
+}
+
+#page-content-wrapper.menuDisplayed #page-content-wrapper{
+  padding-left:250px;
+}
+*/
+
+/* Sidebar styling */
+.sidebar-nav{
+  padding:0;
+  list-style:none;
+	transition:all .5s;
+	width:100%;
+	text-align:center;
+}
+
+.sidebar-nav li{
+  line-height:40px;
+	width:100%;
+	transition:all .3s;
+	padding:10px;
+}
+
+.sidebar-nav li a {
+  display:block;
+  text-decoration:none;
+}

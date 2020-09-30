@@ -1,0 +1,142 @@
+<html>
+<head>
+    <title>My Company Portal</title>
+    <link href="sidebar.css" rel="stylesheet" type="text/css" media="all">
+    <link rel="stylesheet" href="weblibs/bootstrap.min.css">
+    <link rel="stylesheet" href="weblibs/font-awesome.min.css">
+    <script src="weblibs/jquery.min.js"></script>
+    <script src="weblibs/popper.min.js"></script>
+    <script src="weblibs/bootstrap.min.js"></script>
+    <!-- <script src="weblibs/tableau-2.4.0.min.js"></script> -->
+    <script type="text/javascript" src="weblibs/tableau-2.6.0.js"></script>
+    <script src="sidebar.js"></script>
+    <script src="tableau.js"></script>
+    <script type="text/javascript" src="embedrocks.js"></script>
+    <link href="page.css" rel="stylesheet" type="text/css" media="all">
+    <link href="menu.css" rel="stylesheet" type="text/css" media="all">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script type="text/javascript">
+        function initializeViz() {
+            loadViz1();
+        }
+    </script>
+
+</head>
+
+
+<body onload="initializeViz()">
+
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+        <li><a href="#" onclick="">Portfolio Overview</a></li>
+        <li><a href="#" onclick="">Asset Management</a></li>
+      </ul>
+    </div>
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="header-row"></div>
+          </div>
+        </div>
+        <div class="menu row">
+          <div class="col-lg-12">
+            <div class="margin" aria-label="Basic example">
+              <button id="menu-toggle" type="button" class="btn-block btn btn-primary local-hamburger"><i class="fa fa-bars"></i></button>
+              <button onclick="exportPDF();" type="button" class="btn-block btn btn-primary"><i class="fa fa-file-pdf-o"></i> Export PDF</button>
+              <button onclick="exportData();" type="button" class="btn-block btn btn-primary"><i class="fa fa-database"></i> Export Data</button>
+              <button onclick="showCustomViews()" type="button" class="btn-block btn btn-primary"><i class="fa fa-eye"></i> Views</button>
+              <label for="toggleAlert" type="button"class="btn-block btn btn-primary">Alerts
+                <div >
+                  <div class="menuburger">
+                    <input type="checkbox" id="toggleAlert" />
+                    <label id="show-menu-alert" for="toggleAlert">
+                      <div class="first">
+                        <i class="white material-icons md-18 toggleBtn menuBtn">notification_important</i>
+                        <i class="white material-icons md-36 toggleBtn closeBtn">close</i>
+                      </div>
+                      <div type="button" class="btnburger" onclick="showDataAlertMgmt()" data-toggle="modal" data-target="#modalMgt" >
+                        <i class="white material-icons md-36">settings</i>
+                      </div>
+                      <div class="btnburger" onclick="showDataAlertDialog()">
+                        <i class="white material-icons md-36">add</i>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              </label>
+              <label for="toggle" type="button"class="btn-block btn btn-primary">Subscriptions
+                <div >
+                  <div class="menuburger">
+                    <input type="checkbox" id="toggle" />
+                    <label id="show-menu" for="toggle">
+                      <div class="first">
+                        <i class="white material-icons md-18 toggleBtn menuBtn">calendar_today</i>
+                        <i class="white material-icons md-36 toggleBtn closeBtn">close</i>
+                      </div>
+                      <div type="button" class="btnburger" onclick="showSubscriptionMgmt()" data-toggle="modal" data-target="#modalMgt">
+                        <i class="white material-icons md-36">settings</i>
+                      </div>
+                      <div class="btnburger" onclick="showSubscription()">
+                        <i class="white material-icons md-36">add</i>
+                      </div>
+                    </label>
+                  </div>
+                </div>
+              </label>
+              <button onclick="launchEdit();" type="button" class="btn-block btn btn-primary"><i class="fa fa-pencil"></i> Edit...</button>
+            </div>
+          </div>
+        </div>  
+        <div class="row">
+          <div class="col-lg-12">
+            <div id='tableauViz'></div>
+            <div id='mask'>
+                <center style="margin-top: 10%;">
+                <div class="loader" id="loader"></div>
+                <div class="loader" id="loader2"></div>
+                <div class="loader" id="loader3"></div>
+                <div class="loader" id="loader4"></div> 
+                <!-- <span id="text">LOADING...</span><br>  -->
+                </center>
+            </div>
+          </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+  <div class="modal fade" id="modalMgt" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitle">Manage Alert</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div id="listartefact" class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteArtefacts()">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+        <!-- 
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item local-dropdown-item" href="#" onClick="regionFilterStatic('')">(All)</a>
+            <a class="dropdown-item local-dropdown-item" href="#" onClick="regionFilterStatic('Financial Services')">Financial Services</a>
+            <a class="dropdown-item local-dropdown-item" href="#" onClick="regionFilterStatic('Technology')">Technology</a>
+            <a class="dropdown-item local-dropdown-item" href="#" onClick="regionFilterStatic('Retail')">Retail</a>
+            <a class="dropdown-item local-dropdown-item" href="#" onClick="regionFilterStatic('Utilities')">Utilities</a>
+            <a class="dropdown-item local-dropdown-item" href="#" onClick="regionFilterStatic('Construction Services')">Construction Services</a>
+          </div> -->
