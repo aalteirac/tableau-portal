@@ -183,7 +183,7 @@ body{
 
 
 button.close.theme:hover {
-  color: white;
+  background-color: #ebebeb;
   opacity: 1;
 }
 
@@ -203,16 +203,36 @@ button.close.theme:hover {
 .modal-header.theme {
   padding: 0px;
   height: 30px;
+  width: calc(100% + 2px);
+  margin-left: -1px;
+  margin-top: -1px;
 }
 
 .close.theme {
-  font-weight: 100;
-  font-size: 30;
-  margin-top: -3px;
+  color: #5e6164;
+  opacity: 1;
+  text-shadow: 0 0 black;
+  position: relative;
+  height: 20px;
+  width: 20px;
+  margin-top: 5px;
   margin-right: 5px;
-  margin-bottom: -1rem;
-  margin-left: 1rem;
+  font-size: 30px;
+  font-weight: 100;
   padding: 0px;
+}
+
+.theme.close span {
+  top: -7;
+  position: relative;
+}
+
+.modal-content{
+  box-shadow: rgba(0, 0, 0, 0.15) 1px 1px 2px 0px;
+  border-color: rgb(212, 212, 212);
+  border-radius: 1px !important;
+  border-style: solid;
+  border-width: 1px;
 }
 .modal-footer{
   height: 40px;
@@ -227,7 +247,7 @@ button.close.theme:hover {
 
 .modal-footer button.theme{
   background-color: transparent;
-  color: black;
+  color: #666;
 }
 
 .modal-footer button.theme:hover{
@@ -235,7 +255,25 @@ button.close.theme:hover {
 }
 
 .modal-body .form-check {
-  font-size: small;
+  font-size: 12px;
+  color: #333;
+  font-weight: 300;
+}
+.modal-backdrop.fade.show{
+  background-color: rgb(245, 245, 245);
+  opacity: 0.33;
+}
+
+.modal-body {
+  padding-top: 1rem;
+  padding-right: 0.5rem;
+  padding-bottom: 1rem;
+  padding-left: 0;
+}
+
+.form-check input {
+  position: relative;
+  top: 2px;
 }
 
 
