@@ -164,6 +164,7 @@ label.btn {
 
 body{
   overflow: hidden;
+  /* background: url(https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_1280.jpg); */
 }
 .margin button:hover{
   opacity: 0.95;
@@ -190,6 +191,51 @@ button.close.theme:hover {
   opacity: 0.90;
   background-color: #123655;
   border-color: #123655;
+}
+
+.modal-title.theme {
+  margin-left: 16px;
+  font-size: 12px;
+  margin-top: 6px;
+  font-weight: 300;
+}
+
+.modal-header.theme {
+  padding: 0px;
+  height: 30px;
+}
+
+.close.theme {
+  font-weight: 100;
+  font-size: 30;
+  margin-top: -3px;
+  margin-right: 5px;
+  margin-bottom: -1rem;
+  margin-left: 1rem;
+  padding: 0px;
+}
+.modal-footer{
+  height: 40px;
+}
+.modal-footer button {
+  font-size: 12px;
+  font-weight: 700;
+  width: 100px;
+  padding: 0;
+  height: 25px;
+}
+
+.modal-footer button.theme{
+  background-color: transparent;
+  color: black;
+}
+
+.modal-footer button.theme:hover{
+  color: white;
+}
+
+.modal-body .form-check {
+  font-size: small;
 }
 
 
