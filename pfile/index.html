@@ -17,7 +17,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script type="text/javascript">
         function initializeViz() {
-            loadViz1();
+          //computeViewPortSize();
+          loadViz1();
         }
     </script>
 
@@ -92,18 +93,19 @@
             </div>
           </div>
         </div>  
-        <div class="row">
+        <div class="row viz">
           <div class="col-lg-12">
-            <div id='tableauViz'></div>
             <div id='mask'>
-                <center style="margin-top: 10%;">
-                <div class="loader" id="loader"></div>
-                <div class="loader" id="loader2"></div>
-                <div class="loader" id="loader3"></div>
-                <div class="loader" id="loader4"></div> 
-                <!-- <span id="text">LOADING...</span><br>  -->
-                </center>
+              <center style="margin-top: 10%;">
+              <div class="loader" id="loader"></div>
+              <div class="loader" id="loader2"></div>
+              <div class="loader" id="loader3"></div>
+              <div class="loader" id="loader4"></div> 
+              <!-- <span id="text">LOADING...</span><br>  -->
+              </center>
             </div>
+            <!-- <img style="position:fixed" id="preload" onload="$('#mask').hide()"> -->
+            <div id='tableauViz'></div>
           </div>
         </div>
     </div>

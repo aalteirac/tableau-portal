@@ -1,7 +1,7 @@
 
   var viz;
   var check;
-  var maskDelay=500;
+  var maskDelay=200;
   var retryElement=0
   var workbook,
     activeSheet,
@@ -10,18 +10,21 @@
     placeholderDiv,
     activeFilterSheet;
   var alertTM,subTM;  
+  const VIZ_HEIGHT=0.85;
 
   function loadViz1() {
     url="http://10.177.51.176/#/views/Superstore/Overview?:render=true&:jsdebug=n"
     placeholderDiv = document.getElementById("tableauViz");
     options = {
       width: "100%",
-      height: "85vh",
+      height: `${VIZ_HEIGHT*100}vh`,
       hideTabs: true,
       hideToolbar: true,
       onFirstInteractive: function () {
         pimpdash();
-        // getAlertsForCurrentView();
+        setTimeout(() => {
+          $("#preload").remove();
+        }, 1000);
         //findFilterSheet("Sector Comparison");
         $("#mask").fadeOut(maskDelay,()=>{});
         // findFilterSheet("Investor AUM & Performance");
@@ -30,6 +33,19 @@
     loadViz(placeholderDiv, url, options);
   }
 
+  function computeViewPortSize(){
+    var sz=$("#tableauViz").width();
+    var hg=$(window).height() * VIZ_HEIGHT;
+    $("#preload").on("error",()=>{
+      $("#preload").hide();
+    })
+    $("#preload").on("load",()=>{
+      $("#preload").prop("height",$("#preload").naturalHeight);
+      $("#preload").prop("width",$("#preload").naturalWidth);
+    })
+    $("#preload").prop("src",`http://10.177.51.176/views/Superstore/Overview.png?:highdpi=true&:size=${sz},${hg}`);
+    console.log(sz,hg)
+  }
   function loadViz(placeholderDiv, url, options,menushow) {
 
     function go(){
