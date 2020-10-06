@@ -12,8 +12,27 @@
   var alertTM,subTM;  
   const VIZ_HEIGHT=0.85;
 
+
+  function test(){
+      var idoc=$("#tableauViz iframe")[0].contentWindow.document;
+      var ts=idoc.querySelector("#tsConfigContainer");
+      var sess=JSON.parse(ts.innerHTML).sessionid;
+      $.ajax({
+        url:`/vizql/w/Superstore/v/Overview/sessions/${sess}/commands/tabdoc/open-metrics-panel`,
+        type:"POST",
+        headers: {"X-Tsi-Active-Tab":"Overview"},
+        data:"",
+        contentType:"multipart/form-data; boundary=Hnnptf74",
+        dataType:"json",
+        success: function(data){
+          console.log(data);
+          }
+      })
+  }
+  
   function loadViz1() {
-    url="http://10.177.51.176/#/views/Superstore/Overview?:render=true&:jsdebug=n"
+    //url="http://10.177.51.176/#/views/Superstore/Overview?:render=true&:jsdebug=n";
+    url="http://10.177.51.176/#/views/Regional/Economy?:render=true&:jsdebug=n"
     placeholderDiv = document.getElementById("tableauViz");
     options = {
       width: "100%",
@@ -46,6 +65,7 @@
     $("#preload").prop("src",`http://10.177.51.176/views/Superstore/Overview.png?:highdpi=true&:size=${sz},${hg}`);
     console.log(sz,hg)
   }
+  
   function loadViz(placeholderDiv, url, options,menushow) {
 
     function go(){
@@ -55,22 +75,20 @@
       clearInterval(check);
       viz = new tableau.Viz(placeholderDiv, url, options);
       check=setInterval(()=>{
-        $("iframe").each(function( index ) {
-          var idoc=this.contentWindow.document;
-          var loader=idoc.getElementById("initializing_thin_client");
-          if (loader){
-            $(loader).hide();
-            clearInterval(check);
-          }
-          var tt=idoc.getElementsByClassName("login-pf")[0];
-          if (tt){
-            $(idoc.getElementById("kc-login")).click(()=>{
-              $("#mask").show();
-            })
-            $("#mask").fadeOut(maskDelay,()=>{});
-            clearInterval(check);
-          }
-        })
+        var idoc=$("#tableauViz iframe")[0].contentWindow.document;
+        var loader=idoc.getElementById("initializing_thin_client");
+        if (loader){
+          $(loader).hide();
+          clearInterval(check);
+        }
+        var tt=idoc.getElementsByClassName("login-pf")[0];
+        if (tt){
+          $(idoc.getElementById("kc-login")).click(()=>{
+            $("#mask").show();
+          })
+          $("#mask").fadeOut(maskDelay,()=>{});
+          clearInterval(check);
+        }
       },1000)
     }
     if(menushow==""){
@@ -138,68 +156,83 @@
   }
 
   function pimpdash(){
-    $("iframe").each(function( index ) {
-        var idoc=this.contentWindow.document;
-        var css=`
-          .FIItem.FISelected{
-            background-color:transparent !important;
-          }
-          .tab-textRegion-boundary{
-            background-color:transparent !important;
-          }
-          .tab-zone-padding{
-            background-color:transparent !important;
-          }
-          .tab-zone-margin{
-            background-color:transparent !important;
-          }
-          .dijitButton{
-            background-color:transparent !important;
-          }
-        `
-        addStyle(idoc,css);
-      });
+    var idoc=$("#tableauViz iframe")[0].contentWindow.document;
+    var css=`
+      .FIItem.FISelected{
+        background-color:transparent !important;
+      }
+      .tab-textRegion-boundary{
+        background-color:transparent !important;
+        border-style:none !important;
+      }
+      .tab-zone-padding{
+        background-color:transparent !important;
+        border-style:none !important;
+      }
+      .tab-zone-margin{
+        background-color:transparent !important;
+      }
+      .dijitButton{
+        background-color:transparent !important;
+      }
+      div[data-tb-test-id="FileDownload-Dlg-Dialog-TitleBar"]{
+        background-color:#123655 !important;
+        color:white !important;
+      }
+      div[data-tb-test-id="PdfDialog-Dialog-TitleBar"]{
+        background-color:#123655 !important;
+        color:white !important;
+      }
+      div[data-tb-test-id="customViews-Dialog-TitleBar"]{
+        background-color:#123655 !important;
+        color:white !important;
+      }
+      div[data-tb-test-id="subscribe-Dialog-TitleBar"]{
+        background-color:#123655 !important;
+        color:white !important;
+      }
+      div[data-tb-test-id="dataAlertDialog-Dialog-TitleBar"]{
+        background-color:#123655 !important;
+        color:white !important;
+      }
+      .fvdiwns.tab-manageSubscribers{
+        display:none !important;
+      }
+    `
+    addStyle(idoc,css);
   }
 
   function pimpedit(){
-    var map,clone,contextTab;
-    $("iframe").each(function( index ) {
-
-        var idoc=this.contentWindow.document;
-        $(this.contentWindow.document.getElementsByClassName("tabAuthMenuBarExitButton")[0]).click((e)=>{
-            $("#mask").show();
-            //in case it shows the save dialog :-)
-            setTimeout(()=>{
-              $("iframe").each(function( index ) {
-                if(this.contentWindow.document.querySelector(".tab-dialog.tab-widget.tabDropTarget.active")!=null)
-                $("#mask").hide();
-              })
-            },2000);
-        })
-        
-        var css=`
-          .tabAuthLeftViewAreaResizer,.tab-schemaCommon,.tab-dataSources, .tab-Section, .tabButton, .rightEdge, .tabAuthSchemaCollapse, .tabAuthTabNav, .tabAuthLeftViewArea, .tabTabLabel, .tabAuthTab, .tabAuthTabStatusBar{
-            border:none!important;
-          }
-          .tabSubscribeFooter a{
-            display:none !important;
-          }
-          body, .tabTabLabels,.tabAuthTabNav,.tabAuthSchemaCollapsed,.tabAuthToolbar, .tabAuthLeftPanel, .tabAuthLeftViewArea, .tabAuthTabArea, .tabAuthTabStatusBar, .tabAuthTab{
-            background-color: transparent !important;
-          }
-          .tabAuthMenubarArea {
-            background-color: #123655 !important;
-          }
-        `
-        addStyle(idoc,css);
+    var idoc=$("#tableauViz iframe")[0].contentWindow.document;
+    $(idoc.getElementsByClassName("tabAuthMenuBarExitButton")[0]).click((e)=>{
+        $("#mask").show();
+        //in case it shows the save dialog :-)
+        setTimeout(()=>{
+            if($("#tableauViz iframe")[0].contentWindow.document.querySelector(".tab-dialog.tab-widget.tabDropTarget.active")!=null)
+              $("#mask").hide();
+        },2000);
     })
+    
+    var css=`
+      .tabAuthLeftViewAreaResizer,.tab-schemaCommon,.tab-dataSources, .tab-Section, .tabButton, .rightEdge, .tabAuthSchemaCollapse, .tabAuthTabNav, .tabAuthLeftViewArea, .tabTabLabel, .tabAuthTab, .tabAuthTabStatusBar{
+        border:none!important;
+      }
+      .tabSubscribeFooter a{
+        display:none !important;
+      }
+      body, .tabTabLabels,.tabAuthTabNav,.tabAuthSchemaCollapsed,.tabAuthToolbar, .tabAuthLeftPanel, .tabAuthLeftViewArea, .tabAuthTabArea, .tabAuthTabStatusBar, .tabAuthTab{
+        background-color: transparent !important;
+      }
+      .tabAuthMenubarArea {
+        background-color: #123655 !important;
+      }
+    `
+    addStyle(idoc,css);
   }
 
   function getToken(){
     var token="";
-    $("iframe").each(function( index ) {
-      token =this.contentWindow.document.cookie.split("=")[1]
-    });
+    token =$("#tableauViz iframe")[0].contentWindow.document.cookie.split("=")[1]
     return token;
   }
 
@@ -218,50 +251,6 @@
           }
       })
     })
-  }
-
-  function overrideElementStyleInIframe(elemSelector,style,retry){
-    if (retry==0)
-      retryElement=0;
-    if (retryElement==500)
-      return;
-    $("iframe").each(function( index ) {
-      var elem=this.contentWindow.document.querySelector(elemSelector);
-      if(elem==null){
-        setTimeout(() => {
-          retryElement=retryElement+1;
-          overrideElementStyleInIframe(elemSelector,style,retryElement);
-        }, 10);
-      }
-      else{
-        style.forEach(st => {
-          elem.style[st.prop] = st.value; 
-        });
-      }  
-    });
-  }
-
-  function hideElementInIframe(elemSelector,remove=false,retry){
-    if (retry==0)
-      retryElement=0;
-    if (retryElement==30)
-      return;
-    $("iframe").each(function( index ) {
-      var elem=this.contentWindow.document.querySelector(elemSelector);
-      if(elem==null){
-        setTimeout(() => {
-          console.log("hide retry",retryElement, remove);
-          retryElement=retryElement+1;
-          hideElementInIframe(elemSelector,remove,retryElement);
-        }, 1);
-      }
-      else{
-        if(remove==true)
-          elem.parentNode.removeChild(elem);
-        else
-          elem.style.display = 'none'; 
-      }  
-    });
   }
 
   function getSubscriptions(){
@@ -306,79 +295,9 @@
         })
       })
     })
-    
-    //SEEMS ALL ALERTS ARE RETURNED WHEN DEALING WITH ORIGINAL OR CUSTOM VIEW...
-    //manage if there's no custom views 
-    // workbook.getCustomViewsAsync().then((views)=>{
-    //   var curView=workbook.getActiveCustomView();
-    //   if(curView!=null){
-    //     console.log(curView.getName());
-    //     sendVizPortalPOST("getViewByPath",`{"path":"${curView.getUrl().split("views/")[1]}"}`).then((data)=>{
-    //       sendVizPortalPOST("getDataAlertsForView",`{"viewId":"${data.result.id}"}`).then((data)=>{
-    //         console.log(data.result.dataAlerts);
-    //       })
-    //     })
-    //   }
-    //   else{
-    //     //get viewID with url path
-        
-    //   }
-    // });
   }
 
-  function clearCookie(){
-    var map,clone,contextTab;
-    $("iframe").each(function( index ) {
-      window.tab=contextTab;
-        console.log( index + ": " + this.contentWindow.document);
-        ifwind=this.contentWindow;
-        // if(this.contentWindow.document.getElementById("tabZoneId47").style.display=="none")
-        //   this.contentWindow.document.getElementById("tabZoneId47").style.display='';
-        // else
-        //   this.contentWindow.document.getElementById("tabZoneId47").style.display="none"
-        // token =this.contentWindow.document.cookie.split("=")[1];
-        var contextTab=this.contentWindow.tab;
-        var tabod=$(this.contentWindow.document.body);
-        var idoc=this.contentWindow.document;
-        var css=`
-          .tabAuthLeftViewAreaResizer,.tab-schemaCommon,.tab-dataSources, .tab-Section, .tabButton, .rightEdge, .tabAuthSchemaCollapse, .tabAuthTabNav, .tabAuthLeftViewArea, .tabTabLabel, .tabAuthTab, .tabAuthTabStatusBar{
-            border:none!important;
-          }
-          .tabSubscribeFooter a{
-            display:none !important;
-          }
-          body, .tabTabLabels,.tabAuthTabNav,.tabAuthSchemaCollapsed,.tabAuthToolbar, .tabAuthLeftPanel, .tabAuthLeftViewArea, .tabAuthTabArea, .tabAuthTabStatusBar, .tabAuthTab{
-            background-color: transparent !important;
-          }
-          .tabAuthMenubarArea {
-            background-color: #123655 !important;
-          }
-          // .FIItem.FISelected{
-          //   background-color:transparent !important;
-          // }
-          // .tab-textRegion-boundary{
-          //   background-color:transparent !important;
-          // }
-          // .tab-zone-padding{
-          //   background-color:transparent !important;
-          // }
-          // .tab-zone-margin{
-          //   background-color:transparent !important;
-          // }
-          // .dijitButton{
-          //   background-color:transparent !important;
-          // }
-        `
-        addStyle(idoc,css);
-        // map=this.contentWindow.document.getElementById("tabZoneId85");
-        // map=$(map);
-        // tabod.find("*").each(function( index ) {
-        //   console.log( index );
-        //   $(this).css("background-color","transparent");
-        // });
-        //clone = map.cloneNode(true);
-      });
-      
+  function clearCookie(){     
       //document.getElementById("cloneobj").appendChild(clone);
     //https://10.177.51.176/vizportal/api/web/v1/logout
     // var token="";
@@ -467,33 +386,22 @@
 
   function showDataAlertDialog(){
     viz.showDataAlertDialog();
-    var style=[{prop:"background-color",value:"#123655"},{prop:"color",value:"white"}];
-    overrideElementStyleInIframe("[data-tb-test-id='dataAlertDialog-Dialog-TitleBar']",style,0);
   }
 
   function showSubscription(){
     viz.showSubscriptionDialog();
-    hideElementInIframe(".fvdiwns.tab-manageSubscribers",true,0);
-    var style=[{prop:"background-color",value:"#123655"},{prop:"color",value:"white"}];
-    overrideElementStyleInIframe("[data-tb-test-id='subscribe-Dialog-TitleBar']",style,0);
   }
 
   function showCustomViews(){
     viz.showCustomViewsDialog();
-    var style=[{prop:"background-color",value:"#123655"},{prop:"color",value:"white"}];
-    overrideElementStyleInIframe("[data-tb-test-id='customViews-Dialog-TitleBar']",style,0);
   }
 
   function exportPDF() {
     viz.showExportPDFDialog();
-    var style=[{prop:"background-color",value:"#123655"},{prop:"color",value:"white"}];
-    overrideElementStyleInIframe("[data-tb-test-id='PdfDialog-Dialog-TitleBar']",style,0);
   }
 
   function exportData() {
     viz.showExportCrossTabDialog();
-    var style=[{prop:"background-color",value:"#123655"},{prop:"color",value:"white"}];
-    overrideElementStyleInIframe("[data-tb-test-id='FileDownload-Dlg-Dialog-TitleBar']",style,0);
   }
 
   function resetViz() {
