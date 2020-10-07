@@ -210,6 +210,7 @@
     $("#mask").show();
     viz = new tableau.Viz(placeholderDiv, url, options);
   }
+
   function pimpedit(){
     var idoc=$("#tableauEdit iframe")[0].contentWindow.document;
     $(idoc.getElementsByClassName("tabAuthMenuBarExitButton")[0]).click((e)=>{
@@ -251,6 +252,9 @@
       .tab-dialogTitleBar{
         background-color: #123655 !important;
         color:white !important;
+      }
+      .tabAuthMenuBarWorkbook{
+        display:none !important;
       }
     `
     addStyle(idoc,css);
@@ -439,7 +443,7 @@
     var test=idoc.querySelector(".tabToolbarButton.tab-widget.undo.disabled");
     return test==null;
   }
-  
+
   function showEdit(visible){
     clearInterval(ismodif);
     $("#myCarousel").carousel("pause");
