@@ -439,6 +439,7 @@
     var test=idoc.querySelector(".tabToolbarButton.tab-widget.undo.disabled");
     return test==null;
   }
+  
   function showEdit(visible){
     clearInterval(ismodif);
     $("#myCarousel").carousel("pause");
