@@ -254,7 +254,7 @@
         color:white !important;
       }
       .tabAuthMenuBarWorkbook{
-        display:none !important;
+        opacity:0 !important;
       }
     `
     addStyle(idoc,css);
