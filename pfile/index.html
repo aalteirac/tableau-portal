@@ -2,11 +2,11 @@
 <head>
     <title>My Company Portal</title>
     <link href="sidebar.css" rel="stylesheet" type="text/css" media="all">
-    <link rel="stylesheet" href="weblibs/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="weblibs/font-awesome.min.css">
     <script src="weblibs/jquery.min.js"></script>
     <script src="weblibs/popper.min.js"></script>
-    <script src="weblibs/bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <!-- <script src="weblibs/tableau-2.4.0.min.js"></script> -->
     <script type="text/javascript" src="weblibs/tableau-2.4.0.min.js"></script>
     <script src="sidebar.js"></script>
@@ -18,7 +18,7 @@
     <script type="text/javascript">
         function initializeViz() {
           //computeViewPortSize();
-          loadViz1();
+          loadVizInit();
         }
     </script>
 
@@ -41,7 +41,11 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
-            <div class="header-row"></div>
+            <div class="header-row">
+              <button type="button" class="close edit" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
           </div>
         </div>
         <div class="menu row">
@@ -95,7 +99,7 @@
         </div>  
         <div class="row viz">
           <div class="col-lg-12">
-            <div id='mask' style="">
+            <div id='mask'>
               <center style="margin-top: 10%;">
               <div class="loader" id="loader"></div>
               <div class="loader" id="loader2"></div>
@@ -105,7 +109,18 @@
               </center>
             </div>
             <!-- <img style="position:fixed" id="preload" onload="$('#mask').hide()"> -->
-            <div id='tableauViz'></div>
+            <div class="">
+              <div id="myCarousel" class="carousel slide" data-ride="">
+                <div class="carousel-inner" role="listbox">
+                  <div class="item active">
+                    <div id='tableauViz'></div>
+                  </div>
+                  <div class="item">
+                    <div id='tableauEdit'></div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
     </div>
@@ -113,7 +128,7 @@
 </div>
 
   <div class="modal fade" id="modalMgt" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header theme">
           <h5 class="modal-title theme" id="modalTitle">Manage Alert</h5>

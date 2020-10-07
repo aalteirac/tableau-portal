@@ -1,6 +1,6 @@
 
-  var viz;
-  var check;
+  var viz, edit;
+  var check,ismodif;
   var maskDelay=200;
   var retryElement=0
   var workbook,
@@ -30,7 +30,7 @@
       })
   }
   
-  function loadViz1() {
+  function loadVizInit() {
     //url="http://10.177.51.176/#/views/Superstore/Overview?:render=true&:jsdebug=n";
     url="http://10.177.51.176/#/views/Regional/Economy?:render=true&:jsdebug=n"
     placeholderDiv = document.getElementById("tableauViz");
@@ -41,8 +41,9 @@
       hideToolbar: true,
       onFirstInteractive: function () {
         pimpdash();
+        $("#myCarousel").carousel("pause");
         setTimeout(() => {
-          $("#preload").remove();
+          preloadEdit();
         }, 1000);
         //findFilterSheet("Sector Comparison");
         $("#mask").fadeOut(maskDelay,()=>{});
@@ -202,15 +203,33 @@
     addStyle(idoc,css);
   }
 
+  function reloadVizAfterSave(){
+    if (viz) {
+      viz.dispose();
+    }
+    $("#mask").show();
+    viz = new tableau.Viz(placeholderDiv, url, options);
+  }
   function pimpedit(){
-    var idoc=$("#tableauViz iframe")[0].contentWindow.document;
+    var idoc=$("#tableauEdit iframe")[0].contentWindow.document;
     $(idoc.getElementsByClassName("tabAuthMenuBarExitButton")[0]).click((e)=>{
-        $("#mask").show();
-        //in case it shows the save dialog :-)
-        setTimeout(()=>{
-            if($("#tableauViz iframe")[0].contentWindow.document.querySelector(".tab-dialog.tab-widget.tabDropTarget.active")!=null)
-              $("#mask").hide();
-        },2000);
+      check=setInterval(()=>{
+        var idoc=$("#tableauEdit iframe")[0].contentWindow.document;
+        var sv=idoc.querySelector('button[data-tb-test-id="tab-confirmation-confirm-Button"]')
+        if(sv!=null){
+          clearInterval(check);
+          $(idoc.querySelector('button[data-tb-test-id="tab-confirmation-confirm-Button"]')).click((e)=>{
+            reloadVizAfterSave();
+            showEdit(false);
+          })
+          $(idoc.querySelector('button[data-tb-test-id="tab-confirmation-deny-Button"]')).click((e)=>{
+            showEdit(false);
+          })
+        }
+      },100)  
+    })
+    $(".close.edit").click((e)=>{
+      showEdit(false);  
     })
     
     var css=`
@@ -225,6 +244,13 @@
       }
       .tabAuthMenubarArea {
         background-color: #123655 !important;
+      }
+      .tab-Icon.tabAuthMenuBarExitButton{
+        display:none;
+      }
+      .tab-dialogTitleBar{
+        background-color: #123655 !important;
+        color:white !important;
       }
     `
     addStyle(idoc,css);
@@ -408,30 +434,63 @@
     viz.revertAllAsync();
   }
 
-  function launchEdit() {
-    $("#mask").show();
-    $(".menu").slideToggle(700, ()=>{
-      viz.getCurrentUrlAsync().then(function (current_url) {
-        edit_url = current_url.split("?")[0].replace("/views", "/authoring");
-        edit_options = {
-          width: "100%",
-          height: "85vh",
-          onFirstInteractive: function () {
-            var iframe = document.querySelectorAll("iframe")[0];
-            iframe.onload = function () {
-              $("#mask").show();
-              var srcviz=iframe.src.split("?")[0].replace( "/authoring","/views")
-              console.log(iframe.src.split("?")[0].replace( "/authoring","/views"));
-              loadViz(placeholderDiv, srcviz, options,"");
-              //loadViz(placeholderDiv, this.contentWindow.location.href.split("?")[0], options,"");
-            };
-            pimpedit();
-            $("#mask").fadeOut(maskDelay,()=>{});
-          },
-        };
-        loadViz(placeholderDiv, edit_url, edit_options);
+  function isEditModified(){
+    var idoc=$("#tableauEdit iframe")[0].contentWindow.document;
+    var test=idoc.querySelector(".tabToolbarButton.tab-widget.undo.disabled");
+    return test==null;
+  }
+  function showEdit(visible){
+    clearInterval(ismodif);
+    $("#myCarousel").carousel("pause");
+    $("#myCarousel").carousel("next");
+    if((!$(".menu").is(":visible") && visible==false) ){
+      $(".close.edit").hide();
+      $(".menu").slideToggle(500);
+    }
+    if(($(".menu").is(":visible") && visible==true) ){
+      $(".menu").slideToggle(500,()=>{
+        $(".close.edit").show();
       });
+      ismodif=setInterval(() => {
+        if(isEditModified()){
+          var idoc=$("#tableauEdit iframe")[0].contentWindow.document;
+          $(idoc.querySelector(".tab-Icon.tabAuthMenuBarExitButton")).show();
+          $(".close.edit").hide();
+        }
+        else{
+          var idoc=$("#tableauEdit iframe")[0].contentWindow.document;
+          $(idoc.querySelector(".tab-Icon.tabAuthMenuBarExitButton")).hide();
+          $(".close.edit").show();
+        }
+      }, 500);
+    }
+  }
+
+  function preloadEdit(){
+    if(edit)
+      edit.dispose()
+    var placeholderEdit = document.getElementById("tableauEdit");
+    viz.getCurrentUrlAsync().then(function (current_url) {
+      edit_url = current_url.split("?")[0].replace("/views", "/authoring");
+      edit_options = {
+        width: "100%",
+        height: "85vh",
+        onFirstInteractive: function () {
+          var iframe = $("#tableauEdit iframe")[0];
+          iframe.onload = function () {
+            setTimeout(() => {
+              preloadEdit();
+            }, 500);
+          };
+          pimpedit();
+        },
+      };
+      edit=new tableau.Viz(placeholderEdit, edit_url, edit_options);
     });
+  }
+
+  function launchEdit() {
+    showEdit(true);
   }
 
   function findFilterSheet(sheetName) {
