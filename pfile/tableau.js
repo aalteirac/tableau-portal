@@ -496,6 +496,7 @@
     }
 
     function preloadEdit(){
+      $(".editbtn").prop("disabled","true");
       if(edit)
         edit.dispose()
       var placeholderEdit = document.getElementById("tableauEdit");
