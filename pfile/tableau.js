@@ -220,6 +220,7 @@
         if(sv!=null){
           clearInterval(check);
           $(idoc.querySelector('button[data-tb-test-id="tab-confirmation-confirm-Button"]')).click((e)=>{
+            $(".editbtn").prop("disabled","true");
             reloadVizAfterSave();
             showEdit(false);
           })
@@ -482,6 +483,11 @@
         height: "85vh",
         onFirstInteractive: function () {
           var iframe = $("#tableauEdit iframe")[0];
+          $(".prel").show();
+          setTimeout(() => {
+            $(".prel").css("display","");
+            $(".editbtn").removeAttr("disabled");
+          }, 4000);
           iframe.onload = function () {
             setTimeout(() => {
               preloadEdit();

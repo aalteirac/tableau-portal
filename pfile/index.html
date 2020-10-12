@@ -7,7 +7,6 @@
     <script src="weblibs/jquery.min.js"></script>
     <script src="weblibs/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <!-- <script src="weblibs/tableau-2.4.0.min.js"></script> -->
     <script type="text/javascript" src="weblibs/tableau-2.4.0.min.js"></script>
     <script src="sidebar.js"></script>
     <script src="tableau.js?tm=1"></script>
@@ -21,12 +20,8 @@
           loadVizInit();
         }
     </script>
-
 </head>
-
-
 <body onload="initializeViz()">
-
   <div id="wrapper">
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
@@ -35,7 +30,6 @@
         <li><a href="#" onclick="">Asset Management</a></li>
       </ul>
     </div>
-
     <!-- Page Content -->
     <div id="page-content-wrapper">
       <div class="container-fluid">
@@ -93,7 +87,7 @@
                   </div>
                 </div>
               </label>
-              <button onclick="launchEdit();" type="button" class="btn-block btn btn-primary"><i class="fa fa-pencil"></i> Edit...</button>
+              <button onclick="launchEdit();" type="button" class="editbtn btn-block btn btn-primary" disabled><i class="fa fa-pencil"></i> Edit...</button>
             </div>
           </div>
         </div>  
@@ -105,7 +99,6 @@
               <div class="loader" id="loader2"></div>
               <div class="loader" id="loader3"></div>
               <div class="loader" id="loader4"></div> 
-              <!-- <span id="text">LOADING...</span><br>  -->
               </center>
             </div>
             <!-- <img style="position:fixed" id="preload" onload="$('#mask').hide()"> -->
@@ -115,7 +108,7 @@
                   <div class="item active">
                     <div id='tableauViz'></div>
                   </div>
-                  <div class="item">
+                  <div class="item prel">
                     <div id='tableauEdit'></div>
                   </div>
                 </div>
@@ -125,8 +118,7 @@
         </div>
     </div>
     </div>
-</div>
-
+  </div>
   <div class="modal fade" id="modalMgt" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
@@ -147,13 +139,3 @@
     </div>
   </div>
 </body>
-
-        <!-- 
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-            <a class="dropdown-item local-dropdown-item" href="#" onClick="regionFilterStatic('')">(All)</a>
-            <a class="dropdown-item local-dropdown-item" href="#" onClick="regionFilterStatic('Financial Services')">Financial Services</a>
-            <a class="dropdown-item local-dropdown-item" href="#" onClick="regionFilterStatic('Technology')">Technology</a>
-            <a class="dropdown-item local-dropdown-item" href="#" onClick="regionFilterStatic('Retail')">Retail</a>
-            <a class="dropdown-item local-dropdown-item" href="#" onClick="regionFilterStatic('Utilities')">Utilities</a>
-            <a class="dropdown-item local-dropdown-item" href="#" onClick="regionFilterStatic('Construction Services')">Construction Services</a>
-          </div> -->
