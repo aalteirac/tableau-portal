@@ -44,10 +44,9 @@
         $("#myCarousel").carousel("pause");
         setTimeout(() => {
           preloadEdit();
+          preloadAsk();
         }, 1000);
-        //findFilterSheet("Sector Comparison");
         $("#mask").fadeOut(maskDelay,()=>{});
-        // findFilterSheet("Investor AUM & Performance");
       },
     };
     loadViz(placeholderDiv, url, options);
@@ -523,6 +522,10 @@
       };
       edit=new tableau.Viz(placeholderEdit, edit_url, edit_options);
     });
+  }
+
+  function preloadAsk(){
+    $("#tableauAsk iframe")[0].contentWindow.location="http://10.177.51.176/askData/WorldIndicators?embed=y";
   }
 
   function launchEdit() {
