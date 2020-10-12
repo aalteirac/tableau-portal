@@ -22,12 +22,11 @@
     </script>
 </head>
 <body onload="initializeViz()">
-  <div id="wrapper">
+  <div id="wrapper" class="menuDisplayed">
     <!-- Sidebar -->
     <div id="sidebar-wrapper">
       <ul class="sidebar-nav">
-        <li><a href="#" onclick="">Portfolio Overview</a></li>
-        <li><a href="#" onclick="">Asset Management</a></li>
+        <a class="twitter-timeline" data-theme="dark" data-chrome="nofooter noborders transparent noscrollbar" href="https://twitter.com/wef?ref_src=twsrc%5Etfw">Love Data</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
       </ul>
     </div>
     <!-- Page Content -->
@@ -45,18 +44,17 @@
         <div class="menu row">
           <div class="col-lg-12">
             <div class="margin" aria-label="Basic example">
-              <button onclick="test()" id="menu-toggle" type="button" class="btn-block btn btn-primary local-hamburger"><i class="fa fa-bars"></i></button>
-              <button onclick="exportPDF();" type="button" class="btn-block btn btn-primary"><i class="fa fa-file-pdf-o"></i> Export PDF</button>
-              <button onclick="exportData();" type="button" class="btn-block btn btn-primary"><i class="fa fa-database"></i> Export Data</button>
-              <button onclick="showCustomViews()" type="button" class="btn-block btn btn-primary"><i class="fa fa-eye"></i> Views</button>
-              <label for="toggleAlert" type=""class="btn-block btn btn-primary">Alerts
-                <div >
+              <button onclick="exportPDF();" type="button" class="btn-block btn btn-primary"><i class="fa fa-file-pdf-o"></i></button>
+              <button onclick="exportData();" type="button" class="btn-block btn btn-primary"><i class="fa fa-database"></i></button>
+              <button onclick="showCustomViews()" type="button" class="btn-block btn btn-primary"><i class="fa fa-eye"></i></button>
+              <label for="toggleAlert" type="button" class="btn-block btn btn-primary"><i class="fa fa-bell-o"></i>
+                <div>
                   <div class="menuburger">
                     <input type="checkbox" id="toggleAlert" onchange="poptrigAlert(event)" />
                     <label id="show-menu-alert" for="toggleAlert">
                       <div class="first">
-                        <i class="white material-icons md-18 toggleBtn menuBtn">notification_important</i>
-                        <i class="white material-icons md-36 toggleBtn closeBtn">close</i>
+                        <i class="white toggleBtn menuBtn"></i>
+                        <!-- <i class="white material-icons md-36 toggleBtn closeBtn">close</i> -->
                       </div>
                       <div type="" class="btnburger" onclick="showDataAlertMgmt()" data-toggle="modal" data-target="#modalMgt" >
                         <i class="white material-icons md-36">settings</i>
@@ -68,14 +66,14 @@
                   </div>
                 </div>
               </label>
-              <label for="toggle" type=""class="btn-block btn btn-primary">Subscriptions
+              <label for="toggle" type="button" class="btn-block btn btn-primary"><i class="fa fa-envelope"></i>
                 <div >
                   <div class="menuburger">
                     <input type="checkbox" id="toggle" onchange="poptrigSubs(event)" />
                     <label id="show-menu" for="toggle">
                       <div class="first">
-                        <i class="white material-icons md-18 toggleBtn menuBtn">calendar_today</i>
-                        <i class="white material-icons md-36 toggleBtn closeBtn">close</i>
+                        <i class="white toggleBtn menuBtn"></i>
+                        <!-- <i class="white material-icons md-36 toggleBtn closeBtn">close</i> -->
                       </div>
                       <div type="" class="btnburger" onclick="showSubscriptionMgmt()" data-toggle="modal" data-target="#modalMgt">
                         <i class="white material-icons md-36">settings</i>
@@ -87,7 +85,9 @@
                   </div>
                 </div>
               </label>
-              <button onclick="launchEdit();" type="button" class="editbtn btn-block btn btn-primary" disabled><i class="fa fa-pencil"></i> Edit...</button>
+              <button onclick="launchEdit();" type="button" class="editbtn btn-block btn btn-primary" disabled><i class="fa fa-pencil"></i> <div style="display: inline;"></div></button>
+              <button onclick="launchAsk();" type="button" class="askbtn editbtn btn-block btn btn-primary" disabled><i class="ask fa fa-question"></i></button>
+              <button onclick="test()" id="menu-toggle" type="button" class="btn-block btn btn-primary local-hamburger"><i class="fa fa-twitter"></i></button>
             </div>
           </div>
         </div>  
@@ -110,6 +110,9 @@
                   </div>
                   <div class="item prel">
                     <div id='tableauEdit'></div>
+                  </div>
+                  <div class="item">
+                    <div id='tableauAsk'><iframe onload="pimpAsk()" src='http://10.177.51.176/askData/WorldIndicators?embed=y' style='width: 100%; height: 92vh; border: 0'></iframe></div>
                   </div>
                 </div>
               </div>

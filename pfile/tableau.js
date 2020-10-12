@@ -10,7 +10,7 @@
     placeholderDiv,
     activeFilterSheet;
   var alertTM,subTM;  
-  const VIZ_HEIGHT=0.85;
+  const VIZ_HEIGHT=0.87;
 
 
   function test(){
@@ -209,6 +209,28 @@
     }
     $("#mask").show();
     viz = new tableau.Viz(placeholderDiv, url, options);
+  }
+
+  function pimpAsk(){
+    var idoc=$("#tableauAsk iframe")[0].contentWindow.document;
+    var css=`
+    .Sections__exploringLayoutWrapper__24ea_ {
+      background-color: transparent !important;
+    }
+    .Sections__leftSection__4CtWM{
+      border-right-style: none !important;
+    }
+    .ProgressBar__completedProgressBarContainer__z-YB8 {
+      background-color: transparent !important;
+    }
+    .Sections__sampleExpressionsSection__1u7X9 .Sections__sampleExpressionPromptTextSuggestions__jdeUs {
+      border-bottom-style: none !important;
+    }
+    .f1ikt3bv {
+      border-style:none !important;
+    }
+    `
+    addStyle(idoc,css);
   }
 
   function pimpedit(){
@@ -447,13 +469,13 @@
 
   function showEdit(visible){
     clearInterval(ismodif);
-    $("#myCarousel").carousel("pause");
-    $("#myCarousel").carousel("next");
     if((!$(".menu").is(":visible") && visible==false) ){
       $(".close.edit").hide();
       $(".menu").slideToggle(500);
+      $("#myCarousel").carousel(0);
     }
     if(($(".menu").is(":visible") && visible==true) ){
+      $("#myCarousel").carousel(1);
       $(".menu").slideToggle(500,()=>{
         $(".close.edit").show();
       });
@@ -470,6 +492,7 @@
         }
       }, 500);
     }
+    $("#myCarousel").carousel("pause");
   }
 
   function preloadEdit(){
@@ -480,13 +503,15 @@
       edit_url = current_url.split("?")[0].replace("/views", "/authoring");
       edit_options = {
         width: "100%",
-        height: "85vh",
+        height: "90vh",
         onFirstInteractive: function () {
           var iframe = $("#tableauEdit iframe")[0];
+          $(".prel").css("opacity","0.01");
           $(".prel").show();
           setTimeout(() => {
             $(".prel").css("display","");
             $(".editbtn").removeAttr("disabled");
+            $(".prel").css("opacity","1");
           }, 4000);
           iframe.onload = function () {
             setTimeout(() => {
@@ -502,6 +527,25 @@
 
   function launchEdit() {
     showEdit(true);
+  }
+
+  function launchAsk() {
+    var currentIndex = $('.carousel div.active').index();
+    if(currentIndex==0){
+      $("#myCarousel").carousel(2);
+      $(".ask").removeClass("fa-question");
+      $(".ask").addClass("fa-undo");
+      $(".menu .btn-block").prop("disabled","true").attr("disabled","true");
+      $(".askbtn").removeAttr("disabled")
+    }
+    else{
+      $("#myCarousel").carousel(0);
+      $(".ask").removeClass("fa-undo");
+      $(".ask").addClass("fa-question");
+      $(".menu .btn-block").removeAttr("disabled");
+    }
+    
+    $("#myCarousel").carousel("pause");
   }
 
   function findFilterSheet(sheetName) {
