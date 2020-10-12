@@ -223,7 +223,7 @@ button.close.edit:hover {
   margin-top: -1px;
 }
 
-.close.edit {
+.close.edit, .close.ask {
   display: none;
   color: #b4b4b4;
   opacity: 1;

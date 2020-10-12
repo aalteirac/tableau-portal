@@ -16,7 +16,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script type="text/javascript">
         function initializeViz() {
-          loadVizInit();
+          tabportal.loadVizInit();
         }
     </script>
 </head>
@@ -37,27 +37,30 @@
               <button type="button" class="close edit" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
+              <button onclick="tabportal.launchAsk()" type="button" class="close ask" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
           </div>
         </div>
         <div class="menu row">
           <div class="col-lg-12">
             <div class="margin" aria-label="Basic example">
-              <button onclick="exportPDF();" type="button" class="btn-block btn btn-primary"><i class="fa fa-file-pdf-o"></i></button>
-              <button onclick="exportData();" type="button" class="btn-block btn btn-primary"><i class="fa fa-database"></i></button>
-              <button onclick="showCustomViews()" type="button" class="btn-block btn btn-primary"><i class="fa fa-eye"></i></button>
+              <button onclick="tabportal.exportPDF();" type="button" class="btn-block btn btn-primary"><i class="fa fa-file-pdf-o"></i></button>
+              <button onclick="tabportal.exportData();" type="button" class="btn-block btn btn-primary"><i class="fa fa-database"></i></button>
+              <button onclick="tabportal.showCustomViews()" type="button" class="btn-block btn btn-primary"><i class="fa fa-eye"></i></button>
               <label for="toggleAlert" type="button" class="btn-block btn btn-primary"><i class="fa fa-bell-o"></i>
                 <div>
                   <div class="menuburger">
-                    <input type="checkbox" id="toggleAlert" onchange="poptrigAlert(event)" />
+                    <input type="checkbox" id="toggleAlert" onchange="tabportal.poptrigAlert(event)" />
                     <label id="show-menu-alert" for="toggleAlert">
                       <div class="first">
                         <i class="white toggleBtn menuBtn"></i>
                       </div>
-                      <div type="" class="btnburger" onclick="showDataAlertMgmt()" data-toggle="modal" data-target="#modalMgt" >
+                      <div type="" class="btnburger" onclick="tabportal.showDataAlertMgmt()" data-toggle="modal" data-target="#modalMgt" >
                         <i class="white material-icons md-36">settings</i>
                       </div>
-                      <div class="btnburger" onclick="showDataAlertDialog()">
+                      <div class="btnburger" onclick="tabportal.showDataAlertDialog()">
                         <i class="white material-icons md-36">add</i>
                       </div>
                     </label>
@@ -67,24 +70,24 @@
               <label for="toggle" type="button" class="btn-block btn btn-primary"><i class="fa fa-envelope"></i>
                 <div >
                   <div class="menuburger">
-                    <input type="checkbox" id="toggle" onchange="poptrigSubs(event)" />
+                    <input type="checkbox" id="toggle" onchange="tabportal.poptrigSubs(event)" />
                     <label id="show-menu" for="toggle">
                       <div class="first">
                         <i class="white toggleBtn menuBtn"></i>
                       </div>
-                      <div type="" class="btnburger" onclick="showSubscriptionMgmt()" data-toggle="modal" data-target="#modalMgt">
+                      <div type="" class="btnburger" onclick="tabportal.showSubscriptionMgmt()" data-toggle="modal" data-target="#modalMgt">
                         <i class="white material-icons md-36">settings</i>
                       </div>
-                      <div class="btnburger" onclick="showSubscription()">
+                      <div class="btnburger" onclick="tabportal.showSubscription()">
                         <i class="white material-icons md-36">add</i>
                       </div>
                     </label>
                   </div>
                 </div>
               </label>
-              <button onclick="launchEdit();" type="button" class="editbtn btn-block btn btn-primary" disabled><i class="fa fa-pencil"></i> <div style="display: inline;"></div></button>
-              <button onclick="launchAsk();" type="button" class="askbtn editbtn btn-block btn btn-primary" disabled><i class="ask fa fa-question"></i></button>
-              <button onclick="test()" id="menu-toggle" type="button" class="btn-block btn btn-primary local-hamburger"><i class="fa fa-twitter"></i></button>
+              <button onclick="tabportal.launchEdit();" type="button" class="editbtn btn-block btn btn-primary" disabled><i class="fa fa-pencil"></i> <div style="display: inline;"></div></button>
+              <button onclick="tabportal.launchAsk();" type="button" class="askbtn editbtn btn-block btn btn-primary" disabled><i class="ask fa fa-question"></i></button>
+              <button id="menu-toggle" type="button" class="btn-block btn btn-primary local-hamburger"><i class="fa fa-twitter"></i></button>
             </div>
           </div>
         </div>  
@@ -109,7 +112,7 @@
                     <div id='tableauEdit'></div>
                   </div>
                   <div class="item">
-                    <div id='tableauAsk'><iframe onload="pimpAsk()" src='http://10.177.51.176/askData/WorldIndicators?embed=y' style='width: 100%; height: 92vh; border: 0'></iframe></div>
+                    <div id='tableauAsk'><iframe style='width: 100%; height: 92vh; border: 0'></iframe></div>
                   </div>
                 </div>
               </div>
@@ -133,7 +136,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="theme btn btn-secondary" data-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteArtefacts()">Delete</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="tabportal.deleteArtefacts()">Delete</button>
         </div>
       </div>
     </div>
