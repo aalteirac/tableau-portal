@@ -82,11 +82,11 @@
             $(loader).hide();
             clearInterval(check);
           }
-          var tt=idoc.getElementsByClassName("login-pf")[0];
+          var tt=idoc.getElementById("AuthHelperLocSignInTo");
           if (tt){
-            $(idoc.getElementById("kc-login")).click(()=>{
-              $("#mask").show();
-            })
+            // $(idoc.getElementById("kc-login")).click(()=>{
+            //   $("#mask").show();
+            // })
             $("#mask").fadeOut(maskDelay,()=>{});
             clearInterval(check);
           }
